@@ -43,7 +43,13 @@ def set_status(name:str,state):
 
         cr = db.cursor()
 
-        cr.execute(f"UPDATE soldiers SET current_state = '{state}' WHERE name in('{name}',{name.strip()})")
+        cr.execute(f"SELECT * FROM soldiers WHERE name in('{name}','{name.strip()}'")
+        result = cr.fetchone()
+        if result:
+                cr.execute(f"UPDATE soldiers SET current_state = '{state}' WHERE name in('{name}','{name.strip()}')")
+        else:
+                print("this name is not in our database")
+
 
         # Commit changes
         db.commit()
@@ -57,10 +63,13 @@ def get_soldier(name):
         cr = db.cursor()
         cr.execute(f"SELECT * FROM soldiers WHERE name LIKE '%{name}%'")
         result = cr.fetchall()
-        soldiers_list = []
-        for row in result:
-                out = Soldier.Soldier(row[0],row[2],row[1],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[12],row[13],row[14],row[15],row[16],row[17],row[18],row[19])
-                soldiers_list.append(out)
+        if result:
+                soldiers_list = []
+                for row in result:
+                        out = Soldier.Soldier(row[0],row[2],row[1],row[3],row[4],row[5],row[6],row[7],row[8],row[9],row[10],row[11],row[12],row[13],row[14],row[15],row[16],row[17],row[18],row[19])
+                        soldiers_list.append(out)
+        else:
+                print("no name is like that in our database")
         db.close()
         return soldiers_list
 
