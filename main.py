@@ -8,9 +8,9 @@ import Soldier
 
 
 def put_demo_data(j):
-    i = 0
-    while i in range(j):
-        x = Soldier.Soldier(name = f"soldier num {i}",department= random.choice(db_controller.department_list))
+    i = 1
+    while i in range(j+1):
+        x = Soldier.Soldier(name = f"soldier nums {i}",department= random.choice(db_controller.department_list))
         db_controller.add(x)
         i += 1
 def get_yaomia(primary:bool):
@@ -251,8 +251,8 @@ or q to exit
     elif res == "10":
         get_yaomia(False)
     elif res == "11":
-        num = input("how many soldiers do you want to put?\n")
-        put_demo_data(int(num))
+        numb = input("how many soldiers do you want to put?\n")
+        put_demo_data(int(numb))
     elif res == "q":
         break
     else:

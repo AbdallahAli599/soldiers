@@ -26,11 +26,12 @@ def add(soldier):
 
         cr = db.cursor()
 
-        cr.execute(f"SELECT * FROM soldiers WHERE name = {soldier.get_name()}")
-        result = cr.fetchall()
+        cr.execute(f"SELECT * FROM soldiers WHERE name = '{soldier.get_name()}'")
+        result = cr.fetchone()
         if not result:
                 cr.execute(f"INSERT INTO soldiers(name, current_state, department, governorate,saeed, police_id, enlistment_date, birth_date, trial_id, national_id, address, education_level, extra_year, extra_3m,  weapon_ban,muslim, phone_num, fa_phone_num, maried) VALUES('{soldier.get_name()}', '{soldier.get_current_state()}', '{soldier.get_department()}', '{soldier.get_governorate()}', '{soldier.is_saeed()}', '{soldier.get_police_id()}', '{soldier.get_enlistment_date()}', '{soldier.get_birth_date()}', '{soldier.get_trial_id()}', '{soldier.get_national_id()}', '{soldier.get_address()}', '{soldier.get_education_level()}', '{soldier.is_extra_year()}', '{soldier.is_extra_3m()}', '{soldier.is_weapon_ban()}', '{soldier.is_muslim()}', '{soldier.get_phone_num()}', '{soldier.get_fa_phone_num()}', '{soldier.is_maried()}')")
-
+        else:
+                print("this name is already here")
         # Commit changes
         db.commit()
 
